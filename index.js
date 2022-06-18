@@ -1,8 +1,13 @@
 const express = require('express')
 const dotenv = require("dotenv");
 const mongoose = require('mongoose');
+const USERROUTE = require('./Routes/Users')
+const AUTHROUTE =  require('./Routes/auth')
+const app = express();
 
 dotenv.config();
+app.use(express.json());
+
 
 // Connect to mongodb in the .env files.
 
@@ -24,9 +29,16 @@ console.log(`${t2-t1} MSecs`);
 
 
 
-const app = express();
 
 
-app.listen( "5000", () => {
-	console.log('Node runing on 5000')
+// Creating all users Routes and Endpoints
+
+app.use("/api/auth", AUTHROUTE);
+app.use("/api/login", USERROUTE); 
+
+
+
+
+app.listen( "8000", () => {
+	console.log('Node runing on 8000')
 })
