@@ -1,5 +1,7 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
@@ -14,6 +16,15 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 // parse json
 app.use(express.json());
+// cors
+const corsOptions = {
+	origin: "https://haampr.herokuapp.com",
+	optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
+// public
+app.use(express.static(path.join(__dirname, "public")));
 
 // routes
 app.use("/api/v1/auth", authRoute);
